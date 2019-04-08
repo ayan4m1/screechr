@@ -1,0 +1,10 @@
+logging:
+  level: info
+  timestamp: 'YYYY-MM-DD HH:mm:ss'
+discord:
+  clientId: null
+  botToken: null
+  channel: '#general'
+  owners: []
+pterodactyl:
+  baseUrl: https://your.pterodactyl.panel/
