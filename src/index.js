@@ -29,7 +29,7 @@ if (!discord.botToken) {
   logAuthorizeLink();
 }
 
-const client = new Client(discord.botToken);
+const client = new Client();
 
 client.on('error', error => {
   log.error(error);
