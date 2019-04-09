@@ -5,9 +5,7 @@ import configs from './config';
 const { combine, label, prettyPrint, printf, timestamp } = format;
 const { logging: config } = configs;
 
-const loggers = {
-  app: 'app'
-};
+const loggers = {};
 const container = new Container();
 
 const createLogger = (category, categoryLabel) => {
@@ -29,7 +27,7 @@ const createLogger = (category, categoryLabel) => {
     ]
   });
 
-  loggers[category] = container.get(category);
+  return container.get(category);
 };
 
 export default (category, categoryLabel = category) => {

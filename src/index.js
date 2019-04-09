@@ -3,12 +3,16 @@ import loggers from './logging';
 import { Client, RichEmbed } from 'discord.js';
 
 const { discord } = configs;
-const { app: log } = loggers;
+const log = loggers('app');
 
 const logAuthorizeLink = () => {
   try {
     if (!discord.clientId) {
-      throw new Error('You must specify a clientId in the configuration!');
+      log.error('You must specify a clientId in the configuration!');
+      log.info(
+        'You can get a Discord client ID from https://discordapp.com/developers/applications/'
+      );
+      return;
     }
 
     log.info(
