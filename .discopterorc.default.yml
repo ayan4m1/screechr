@@ -8,3 +8,4 @@ discord:
   owners: []
 pterodactyl:
   baseUrl: https://your.pterodactyl.panel/
+  token: null
