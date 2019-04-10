@@ -9,6 +9,7 @@
     "develop": "gulp watch"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "cosmiconfig": "^5.2.0",
     "discord.js": "^11.4.2",
     "winston": "^3.2.1"
