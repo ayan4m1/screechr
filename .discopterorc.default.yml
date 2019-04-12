@@ -2,10 +2,14 @@ logging:
   level: info
   timestamp: 'YYYY-MM-DD HH:mm:ss'
 discord:
-  clientId: null
-  botToken: null
-  channel: '#general'
-  owners: []
+  clientId: null # e.g. '564076188284923311'
+  botToken: null # e.g. 'EJk1NVJYazpzWjUnjQ45.MNK0fe0g.hb23aQCpTVo57tT7lZn8JF82R1SOXi'
+  channelId: null # e.g. '564169044640210934'
+  dateFormat: 'YYYY-MM-DD HH:mm'
 pterodactyl:
   baseUrl: https://your.pterodactyl.panel/
   token: null
+  pollingIntervalMs: 15000
+  servers:
+    - example
+    - 'example_2'

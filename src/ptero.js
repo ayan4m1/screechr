@@ -1,22 +1,92 @@
 import axios from 'axios';
+import Bottleneck from 'bottleneck';
 
 import configs from './config';
+import loggers from './logging';
 
 const { pterodactyl: config } = configs;
+const log = loggers('ptero');
 
 export default class Pterodactyl {
   constructor() {
+    if (!config.token) {
+      const error = new Error(
+        'You must specify a Pterodactyl API token in the configuration!'
+      );
+
+      log.error(error);
+      throw error;
+    }
+
     this.client = axios.create({
-      baseURL: 
-    })
-  }
-  getServers() {
-    axios.get('', {});
+      baseURL: config.baseUrl
+    });
+    this.limiter = new Bottleneck({
+      reservoir: 60,
+      reservoirRefreshAmount: 60,
+      reservoirRefreshInterval: 60000,
+      maxConcurrent: 2,
+      minTime: 500
+    });
   }
 
-  _makeRequest(url, params) {
-    axios.get(url, {
+  async getServerStatus(id) {
+    const response = await this.limiter.schedule(() =>
+      this.makeRequest(`/client/servers/${id}/utilization`)
+    );
+    const { data } = response;
 
-    })
+    if (!data) {
+      return 'unknown';
+    }
+
+    return data.attributes.state;
+  }
+
+  async getServers() {
+    const result = [];
+    const response = await this.limiter.schedule(() =>
+      this.makeRequest('/client')
+    );
+    const { data } = response;
+
+    if (!data) {
+      return result;
+    }
+
+    for (const { attributes } of data.data.filter(
+      entry => entry.object === 'server'
+    )) {
+      result.push({
+        id: attributes.identifier,
+        name: attributes.name
+      });
+    }
+
+    if (data.meta.pagination.total_pages > 1) {
+      log.warn(
+        'There were additional pages of results but I do not know how to fetch them.'
+      );
+    }
+
+    return result;
+  }
+
+  makeRequest(url, params) {
+    const fullUrl = `/api${url}`;
+
+    log.debug(`Requesting ${fullUrl}`);
+    try {
+      return this.client.get(fullUrl, {
+        headers: {
+          Authorization: `Bearer ${config.token}`,
+          'Content-Type': 'application/json',
+          Accept: 'Application/vnd.pterodactyl.v1+json'
+        },
+        params
+      });
+    } catch (error) {
+      log.error(error);
+    }
   }
 }

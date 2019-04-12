@@ -58,7 +58,7 @@ module.exports = {
     'no-cond-assign': 2,
     'no-const-assign': 2,
     'no-constant-condition': 2,
-    'no-continue': 2,
+    'no-continue': 0,
     'no-control-regex': 2,
     'no-delete-var': 2,
     'no-div-regex': 2,
