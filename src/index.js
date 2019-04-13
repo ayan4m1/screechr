@@ -1,4 +1,4 @@
-import { format } from 'date-fns';
+import { format, distanceInWordsToNow } from 'date-fns';
 
 import colors from './colors';
 import configs from './config';
@@ -24,27 +24,39 @@ const execute = async () => {
     const { id, name } = server;
     const status = await pterodactyl.getServerStatus(id);
 
-    if (Array.isArray(pteroConfig.servers) && !pteroConfig.servers.includes()) {
+    if (
+      Array.isArray(pteroConfig.servers) &&
+      !pteroConfig.servers.includes(name)
+    ) {
+      log.debug(
+        `Skipping ${name} as it is not in the list of servers to watch`
+      );
       continue;
     }
 
     const info = {
       id,
       name,
-      status
+      status,
+      updated: format(new Date(), 'x')
     };
     const statusDiff = await storage.checkStore(id, info);
 
     if (statusDiff) {
       const { old: oldStatus, new: newStatus } = statusDiff;
 
-      log.info(`${name} was ${oldStatus.status}, now ${newStatus.status}`);
+      log.info(
+        `${name} was ${oldStatus.status} and is now ${newStatus.status}`
+      );
 
+      const lastUpdated = parseInt(oldStatus.updated, 10);
       const message = new RichEmbed()
         .setTitle(`${name} is now ${newStatus.status}`)
         .setDescription(
-          `Previously, the server had been ${oldStatus.status} since ${format(
-            new Date(),
+          `Previously, the server had been ${
+            oldStatus.status
+          } since ${distanceInWordsToNow(lastUpdated)} ago at ${format(
+            lastUpdated,
             dateFormat
           )}`
         );
