@@ -50,6 +50,10 @@ Your configuration filename should start with `.screechrrc` (note the two Rs at 
 
 Please see the [default configuration](.screechrrc.default.yml) for detailed documentation and examples on each of the available options.
 
+## Screenshot
+
+![Status updates](https://i.imgur.com/5Ln1oUSl.png)
+
 ## Notes
 
 You can set the `pollingIntervalMs` to whatever you like, but be aware that Pterodactyl limits you to one request per second. This means that if you have many servers to check or a very low polling interval, Screechr will rate-limit itself to avoid hammering your Pterodactyl panel with requests.
