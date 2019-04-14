@@ -1,15 +1,32 @@
 logging:
+  # error, warn, info, verbose, debug
   level: info
+  # format of the timestamp - see https://momentjs.com/docs/#/displaying/format/
+  # use false to omit timestamp
   timestamp: 'YYYY-MM-DD HH:mm:ss'
 discord:
-  clientId: null # e.g. '564076188284923311'
-  botToken: null # e.g. 'EJk1NVJYazpzWjUnjQ45.MNK0fe0g.hb23aQCpTVo57tT7lZn8JF82R1SOXi'
-  channelId: null # e.g. '564169044640210934'
+  # generated when you create a Discord application
+  # e.g. '564076188284923311'
+  clientId: null
+  # generated when you create a Bot for your Discord application
+  # e.g. 'EJk1NVJYazpzWjUnjQ45.MNK0fe0g.hb23aQCpTVo57tT7lZn8JF82R1SOXi'
+  botToken: null
+  # the numeric channel ID that status updates will be sent to
+  # e.g. '564169044640210934'
+  channelId: null
+  # format of the "since" date used in Discord messages
+  # see https://momentjs.com/docs/#/displaying/format/
   dateFormat: 'YYYY-MM-DD HH:mm'
 pterodactyl:
+  # should be a full, complete URL pointing to the login page
+  # of a working Pterodactyl panel
   baseUrl: https://your.pterodactyl.panel/
+  # generated on the Account API page of your Pterodactyl panel
   token: null
+  # the time in between status checks in milliseconds
   pollingIntervalMs: 15000
+  # a list of server names or IDs to check
+  # use null to check all servers assigned to you
   servers:
     - example
     - 'example_2'
