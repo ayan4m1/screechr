@@ -14,8 +14,6 @@ First, run the following in the source directory:
 
 > npm install
 
-> npm run build
-
 > cp .screechrrc.default.yml .screechrrc.yml
 
 You will need to use the [Discord Applications](https://discordapp.com/developers/applications/) page to create a client ID. Click "New Application" in the upper right and give it a name. Find the "Client ID" number under the app name and save it for later. From there, click on the Bot link in the left-hand navbar and create a bot user for your application.
