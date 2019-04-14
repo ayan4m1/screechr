@@ -9,7 +9,9 @@
   ],
   "author": "ayan4m1 <andrew@bulletlogic.com>",
   "license": "MIT",
-  "files": ["lib/**/*.js"],
+  "files": [
+    "lib/**/*.js"
+  ],
   "scripts": {
     "prepare": "gulp",
     "build": "gulp",
