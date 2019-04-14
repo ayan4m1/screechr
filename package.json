@@ -4,7 +4,9 @@
   "description": "A bot that facilitates communication between Pterodactyl and Discord",
   "author": "ayan4m1 <andrew@bulletlogic.com>",
   "license": "MIT",
+  "files": ["lib/**/*.js"],
   "scripts": {
+    "prepare": "gulp",
     "build": "gulp",
     "develop": "gulp watch",
     "start": "node lib/index.js"
