@@ -9,13 +9,18 @@ const log = loggers('ptero');
 
 export default class Pterodactyl {
   constructor() {
-    if (!config.token) {
-      const error = new Error(
+    if (!config.baseUrl) {
+      log.error(
+        'You must specify a Pterodactyl panel URL in the configuration!'
+      );
+
+      throw new Error('Missing baseUrl!');
+    } else if (!config.token) {
+      log.error(
         'You must specify a Pterodactyl API token in the configuration!'
       );
 
-      log.error(error);
-      throw error;
+      throw new Error('Missing token!');
     }
 
     this.client = axios.create({
