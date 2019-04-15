@@ -50,9 +50,12 @@ const execute = async () => {
       );
 
       const lastUpdated = parseInt(oldStatus.updated, 10);
-      const message = new RichEmbed()
-        .setTitle(`${name} is now ${newStatus.status}`)
-        .setDescription(
+      const message = new RichEmbed().setTitle(
+        `${name} is now ${newStatus.status}`
+      );
+
+      if (lastUpdated > 0) {
+        message.setDescription(
           `Previously, the server had been ${
             oldStatus.status
           } since ${distanceInWordsToNow(lastUpdated)} ago at ${format(
@@ -60,6 +63,11 @@ const execute = async () => {
             dateFormat
           )}`
         );
+      } else {
+        message.setDescription(
+          `Previously, the server had been ${oldStatus.status}`
+        );
+      }
 
       const statusColor = colors[newStatus.status];
 

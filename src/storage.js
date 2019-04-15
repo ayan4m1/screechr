@@ -9,13 +9,18 @@ export default class Storage {
     await storage.init({ dir: './data' });
 
     const { name, status: currentStatus } = info;
-    const lastStatus = (await storage.getItem(key)) || 0;
+    const lastStatus = await storage.getItem(key);
 
-    if (currentStatus !== lastStatus.status) {
+    if (!lastStatus || currentStatus !== lastStatus.status) {
+      const oldStatus = lastStatus || {
+        status: 'off',
+        updated: 0
+      };
+
       log.info(`${name} (${key}) needs a notification!`);
       await storage.setItem(key, info);
       return {
-        old: lastStatus,
+        old: oldStatus,
         new: info
       };
     } else {
