@@ -1,10 +1,12 @@
 {
   "name": "screechr",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Monitor your Pterodactyl servers and send status updates to Discord.",
   "keywords": [
     "pterodactyl",
     "discord",
+    "polling",
+    "status",
     "bot"
   ],
   "author": "ayan4m1 <andrew@bulletlogic.com>",
