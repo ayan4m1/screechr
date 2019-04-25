@@ -48,7 +48,7 @@ export default class Pterodactyl {
     return data.attributes.state;
   }
 
-  async getServers() {
+  async getAllServers() {
     const result = [];
     const response = await this.limiter.schedule(() =>
       this.makeRequest('/client')

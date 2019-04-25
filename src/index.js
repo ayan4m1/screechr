@@ -4,7 +4,7 @@ import colors from './colors';
 import configs from './config';
 import loggers from './logging';
 
-import Discord from './discord';
+import Discord, { getChannelsForServer, getAllChannels } from './discord';
 import Pterodactyl from './ptero';
 import Storage from './storage';
 import { RichEmbed } from 'discord.js';
@@ -20,7 +20,7 @@ const discord = new Discord();
 const storage = new Storage();
 
 const execute = async () => {
-  for (const server of await pterodactyl.getServers()) {
+  for (const server of await pterodactyl.getAllServers()) {
     const { id, name } = server;
     const status = await pterodactyl.getServerStatus(id);
 
@@ -77,7 +77,16 @@ const execute = async () => {
         message.setColor(colors.unknown);
       }
 
-      await discord.sendMessage(message);
+      const channels = getChannelsForServer(name);
+
+      if (channels.length === 0) {
+        channels.push.apply(channels, getAllChannels());
+      }
+
+      for (const channelId of channels) {
+        log.info(`Notifying ${channelId} of state change...`);
+        await discord.message(channelId, message);
+      }
     } else {
       log.info(`No change in ${name} - still ${status}`);
     }

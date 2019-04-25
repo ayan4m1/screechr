@@ -21,6 +21,7 @@
     "start": "node lib/index.js"
   },
   "dependencies": {
+    "array-unique": "^0.3.2",
     "axios": "^0.18.0",
     "bottleneck": "^2.18.0",
     "cosmiconfig": "^5.2.0",

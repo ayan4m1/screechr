@@ -3,5 +3,6 @@ export default {
   stopping: '#fbb829',
   starting: '#1089c6',
   on: '#7dc990',
-  unknown: '#ecda8f'
+  unknown: '#ecda8f',
+  pteroBlue: '#10529f'
 };

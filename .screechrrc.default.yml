@@ -11,9 +11,6 @@ discord:
   # generated when you create a Bot for your Discord application
   # e.g. 'EJk1NVJYazpzWjUnjQ45.MNK0fe0g.hb23aQCpTVo57tT7lZn8JF82R1SOXi'
   botToken: null
-  # the numeric channel ID that status updates will be sent to
-  # e.g. '564169044640210934'
-  channelId: null
   # format of the "since" date used in Discord messages
   # see https://date-fns.org/v1.30.1/docs/format#description
   dateFormat: 'YYYY-MM-DD HH:mm'
@@ -25,8 +22,20 @@ pterodactyl:
   token: null
   # the time in between status checks in milliseconds
   pollingIntervalMs: 15000
-  # a list of server names or IDs to check
+# this mapping relates Pterodactyl servers (by name) to Discord
+# channels (by numeric ID)
+mapping:
+  # an array of server names or IDs to check
   # use null to check all servers assigned to you
-  servers:
-    - example
-    - 'example_2'
+  - servers:
+      - example
+      - 'example_2'
+    # an array of strings containing the numeric ID of a channel that
+    # status updates will be sent to
+    # e.g. ['564169044640210934', '521165038407213939']
+    channels:
+      - '564169044640210934'
+  - servers:
+      - 'example_3'
+    channels:
+      - '521165038407213939'
