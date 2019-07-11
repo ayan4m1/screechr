@@ -55,7 +55,8 @@ const logAuthorizeLink = () => {
       `To join the bot to a server, go to https://discordapp.com/api/oauth2/authorize?client_id=${config.clientId}&permissions=157696&scope=bot`
     );
   } catch (error) {
-    log.error(error);
+    log.error(error.message);
+    log.error(error.stack);
     throw error;
   }
 };
@@ -65,7 +66,8 @@ export default class Discord {
     const client = new Client();
 
     client.on('error', error => {
-      log.error(error);
+      log.error(error.message);
+      log.error(error.stack);
     });
 
     client.on('ready', async () => {
@@ -124,10 +126,15 @@ export default class Discord {
   }
 
   async message(channelId, message) {
-    const channel = this.getChannel(channelId);
+    try {
+      const channel = this.getChannel(channelId);
 
-    if (channel) {
-      return await channel.send(message);
+      if (channel) {
+        return await channel.send(message);
+      }
+    } catch (error) {
+      log.error(error.message);
+      log.error(error.stack);
     }
   }
 }

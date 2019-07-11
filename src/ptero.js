@@ -36,9 +36,15 @@ export default class Pterodactyl {
   }
 
   async getServerStatus(id) {
-    const response = await this.limiter.schedule(() =>
-      this.makeRequest(`/client/servers/${id}/utilization`)
+    const response = await this.makeRequest(
+      `/client/servers/${id}/utilization`
     );
+
+    if (!response) {
+      log.error(`Failed to get server status for ${id} due to an error.`);
+      return 'unknown';
+    }
+
     const { data } = response;
 
     if (!data) {
@@ -50,9 +56,13 @@ export default class Pterodactyl {
 
   async getAllServers() {
     const result = [];
-    const response = await this.limiter.schedule(() =>
-      this.makeRequest('/client')
-    );
+    const response = await this.makeRequest('/client');
+
+    if (!response) {
+      log.error('Failed to get servers due to an error.');
+      return;
+    }
+
     const { data } = response;
 
     if (!data) {
@@ -77,21 +87,24 @@ export default class Pterodactyl {
     return result;
   }
 
-  makeRequest(url, params) {
+  async makeRequest(url, params) {
     const fullUrl = `/api${url}`;
 
     log.debug(`Requesting ${fullUrl}`);
     try {
-      return this.client.get(fullUrl, {
-        headers: {
-          Authorization: `Bearer ${config.token}`,
-          'Content-Type': 'application/json',
-          Accept: 'Application/vnd.pterodactyl.v1+json'
-        },
-        params
-      });
+      return await this.limiter.schedule(() =>
+        this.client.get(fullUrl, {
+          headers: {
+            Authorization: `Bearer ${config.token}`,
+            'Content-Type': 'application/json',
+            Accept: 'Application/vnd.pterodactyl.v1+json'
+          },
+          params
+        })
+      );
     } catch (error) {
-      log.error(error);
+      log.error(error.message);
+      log.error(error.stack);
     }
   }
 }
