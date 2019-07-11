@@ -45,18 +45,14 @@ const logAuthorizeLink = () => {
     } else if (!config.botToken) {
       log.error('You must specify a botToken in the configuration!');
       log.info(
-        `You can get a Discord bot token from https://discordapp.com/developers/applications/${
-          config.clientId
-        }/bots`
+        `You can get a Discord bot token from https://discordapp.com/developers/applications/${config.clientId}/bots`
       );
 
       throw new Error('Missing Discord bot token!');
     }
 
     log.info(
-      `To join the bot to a server, go to https://discordapp.com/api/oauth2/authorize?client_id=${
-        config.clientId
-      }&permissions=157696&scope=bot`
+      `To join the bot to a server, go to https://discordapp.com/api/oauth2/authorize?client_id=${config.clientId}&permissions=157696&scope=bot`
     );
   } catch (error) {
     log.error(error);
@@ -74,9 +70,7 @@ export default class Discord {
 
     client.on('ready', async () => {
       log.info(
-        `Connected to ${client.guilds.size} servers with ${
-          client.users.size
-        } users.`
+        `Connected to ${client.guilds.size} servers with ${client.users.size} users.`
       );
     });
 
