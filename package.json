@@ -1,6 +1,6 @@
 {
   "name": "screechr",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Monitor your Pterodactyl servers and send status updates to Discord.",
   "keywords": [
     "pterodactyl",
