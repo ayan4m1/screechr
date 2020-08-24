@@ -1,4 +1,4 @@
-import { format, distanceInWordsToNow } from 'date-fns';
+import { format, formatDistanceToNow } from 'date-fns';
 
 import colors from './colors';
 import configs from './config';
@@ -58,7 +58,7 @@ const execute = async () => {
         message.setDescription(
           `Previously, the server had been ${
             oldStatus.status
-          } since ${distanceInWordsToNow(lastUpdated)} ago at ${format(
+          } since ${formatDistanceToNow(lastUpdated)} ago at ${format(
             lastUpdated,
             dateFormat
           )}`
