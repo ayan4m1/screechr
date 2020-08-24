@@ -70,7 +70,7 @@ export default class Pterodactyl {
     }
 
     for (const { attributes } of data.data.filter(
-      entry => entry.object === 'server'
+      (entry) => entry.object === 'server'
     )) {
       result.push({
         id: attributes.identifier,
@@ -103,6 +103,7 @@ export default class Pterodactyl {
         })
       );
     } catch (error) {
+      log.error(JSON.stringify(error, null, 2));
       log.error(error.message);
       log.error(error.stack);
     }

@@ -9,12 +9,12 @@ const loggers = {};
 const container = new Container();
 
 const createLogger = (category, categoryLabel) => {
-  let formatter = data => `[${data.level}][${data.label}] ${data.message}`;
+  let formatter = (data) => `[${data.level}][${data.label}] ${data.message}`;
   const formatters = [label({ label: categoryLabel })];
 
   if (config.timestamp !== false) {
     formatters.push(timestamp({ format: config.timestamp }));
-    formatter = data =>
+    formatter = (data) =>
       `${data.timestamp} [${data.level}][${data.label}] ${data.message}`;
   }
 

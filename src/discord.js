@@ -13,22 +13,22 @@ if (!Array.isArray(mappings) || mappings.length === 0) {
   throw new Error('Invalid server <-> channel mapping!');
 }
 
-const distinctChannels = unique(mappings.flatMap(map => map.channels));
+const distinctChannels = unique(mappings.flatMap((map) => map.channels));
 
-export const getServersForChannel = id => {
+export const getServersForChannel = (id) => {
   const matching = mappings.filter(
-    items => !items.channels && items.channels.includes(id)
+    (items) => !items.channels && items.channels.includes(id)
   );
 
-  return matching.flatMap(map => map.servers);
+  return matching.flatMap((map) => map.servers);
 };
 
-export const getChannelsForServer = name => {
-  const matching = mappings.filter(items => {
+export const getChannelsForServer = (name) => {
+  const matching = mappings.filter((items) => {
     return !items.servers || items.servers.includes(name);
   });
 
-  return matching.flatMap(map => map.channels);
+  return matching.flatMap((map) => map.channels);
 };
 
 export const getAllChannels = () => distinctChannels;
@@ -65,7 +65,7 @@ export default class Discord {
   constructor() {
     const client = new Client();
 
-    client.on('error', error => {
+    client.on('error', (error) => {
       log.error(error.message);
       log.error(error.stack);
     });
@@ -76,7 +76,7 @@ export default class Discord {
       );
     });
 
-    client.on('guildCreate', async guild => {
+    client.on('guildCreate', async (guild) => {
       log.info(
         `Joined a server called ${guild.name} with ${guild.memberCount} users.`
       );
@@ -98,7 +98,7 @@ export default class Discord {
       }
     });
 
-    client.on('guildDelete', async guild => {
+    client.on('guildDelete', async (guild) => {
       log.info(`Left a server called ${guild.name}`);
     });
 
