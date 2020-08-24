@@ -1,4 +1,4 @@
-import { format, formatDistanceToNow } from 'date-fns';
+import { parse, format, formatDistanceToNow } from 'date-fns';
 
 import colors from './colors';
 import configs from './config';
@@ -55,11 +55,13 @@ const execute = async () => {
       );
 
       if (lastUpdated > 0) {
+        const lastUpdatedDate = parse(lastUpdated, 't', Date.now());
+
         message.setDescription(
           `Previously, the server had been ${
             oldStatus.status
-          } since ${formatDistanceToNow(lastUpdated)} ago at ${format(
-            lastUpdated,
+          } since ${formatDistanceToNow(lastUpdatedDate)} ago at ${format(
+            lastUpdatedDate,
             dateFormat
           )}`
         );
