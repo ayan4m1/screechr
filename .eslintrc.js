@@ -1,5 +1,3 @@
-const path = require('path');
-
 module.exports = {
   env: {
     commonjs: true,
@@ -7,17 +5,15 @@ module.exports = {
     jest: true,
     node: true
   },
-  plugins: ['import', 'prettier'],
   extends: [
     'eslint:recommended',
     'plugin:prettier/recommended',
-    'plugin:import/errors',
-    'prettier'
+    'plugin:import/recommended'
   ],
-  parser: 'babel-eslint',
+  parser: '@babel/eslint-parser',
   parserOptions: {
-    ecmaVersion: 9,
-    sourceType: 'module'
+    requireConfigFile: false,
+    ecmaVersion: 12
   },
   rules: {
     'accessor-pairs': 2,
@@ -157,7 +153,6 @@ module.exports = {
     'vars-on-top': 2,
     yoda: 2,
     'no-console': 2,
-    'no-debugger': 2,
-    'prettier/prettier': 2
+    'no-debugger': 2
   }
 };
